@@ -1,12 +1,12 @@
 """
 COMP 163 - Project 2: Character Abilities Showcase
-Name: [Your Name Here]
-Date: [Date]
+Name: Ashton Partridge
+Date: 11/3/2025
 
 AI Usage: [Document any AI assistance used]
 Example: AI helped with inheritance structure and method overriding concepts
 """
-
+import random
 # ============================================================================
 # PROVIDED BATTLE SYSTEM (DO NOT MODIFY)
 # ============================================================================
@@ -63,7 +63,10 @@ class Character:
         """Initialize basic character attributes"""
         # TODO: Set the character's name, health, strength, and magic
         # These should be stored as instance variables
-        pass
+        self.name = name
+        self.health = health
+        self.strength = strength
+        self.magic = magic
         
     def attack(self, target):
         """
@@ -76,7 +79,8 @@ class Character:
         # TODO: Implement basic attack
         # Damage should be based on self.strength
         # Use target.take_damage(damage) to apply damage
-        pass
+        damage = self.strength
+        target.take_damage(damage)
         
     def take_damage(self, damage):
         """
@@ -86,7 +90,9 @@ class Character:
         # TODO: Implement taking damage
         # Reduce self.health by damage amount
         # Make sure health doesn't go below 0
-        pass
+        self.health -= damage
+        if self.health < 0:
+            self.health = 0
         
     def display_stats(self):
         """
@@ -94,7 +100,11 @@ class Character:
         """
         # TODO: Print character's name, health, strength, and magic
         # Make it look nice with formatting
-        pass
+        print("=== CHARACTERS STATS ===")
+        print(f"Name: {self.name}")
+        print(f"Health: {self.health}")
+        print(f"Strength: {self.strength}")
+        print(f"Magic: {self.magic}")
 
 class Player(Character):
     """
@@ -110,7 +120,9 @@ class Player(Character):
         # TODO: Call super().__init__() with the basic character info
         # TODO: Store the character_class (like "Warrior", "Mage", etc.)
         # TODO: Add any other player-specific attributes (level, experience, etc.)
-        pass
+        super().__init__(name, health, strength, magic)
+        self.char_class = character_class
+        self.level = 0
         
     def display_stats(self):
         """
@@ -119,7 +131,9 @@ class Player(Character):
         """
         # TODO: Call the parent's display_stats method using super()
         # TODO: Then print additional player info like class and level
-        pass
+        super().display_stats()
+        print(f"Level: {self.level}")
+        print(f"Class: {self.char_class}")
 
 class Warrior(Player):
     """
@@ -134,7 +148,7 @@ class Warrior(Player):
         """
         # TODO: Call super().__init__() with warrior-appropriate stats
         # Suggested stats: health=120, strength=15, magic=5
-        pass
+        super().__init__(name,"Warrior", 120, 15, 5)
         
     def attack(self, target):
         """
@@ -144,7 +158,7 @@ class Warrior(Player):
         # TODO: Implement warrior attack
         # Should do more damage than basic attack
         # Maybe strength + 5 bonus damage?
-        pass
+        target.take_damage(self.strength + 5)
         
     def power_strike(self, target):
         """
@@ -152,7 +166,7 @@ class Warrior(Player):
         """
         # TODO: Implement power strike
         # Should do significantly more damage than regular attack
-        pass
+        target.take_damage(self.strength * 1.2)
 
 class Mage(Player):
     """
@@ -167,7 +181,7 @@ class Mage(Player):
         """
         # TODO: Call super().__init__() with mage-appropriate stats
         # Suggested stats: health=80, strength=8, magic=20
-        pass
+        super().__init__(name,"Mage", 80, 8, 20)
         
     def attack(self, target):
         """
@@ -176,7 +190,7 @@ class Mage(Player):
         """
         # TODO: Implement mage attack
         # Should use self.magic for damage calculation instead of strength
-        pass
+        target.take_damage(self.magic)
         
     def fireball(self, target):
         """
@@ -184,7 +198,7 @@ class Mage(Player):
         """
         # TODO: Implement fireball spell
         # Should do magic-based damage with bonus
-        pass
+        target.take_damage(self.magic * 1.2)
 
 class Rogue(Player):
     """
@@ -199,7 +213,7 @@ class Rogue(Player):
         """
         # TODO: Call super().__init__() with rogue-appropriate stats
         # Suggested stats: health=90, strength=12, magic=10
-        pass
+        super().__init__(name,"Rogue", 90, 12, 10)
         
     def attack(self, target):
         """
@@ -209,7 +223,11 @@ class Rogue(Player):
         # TODO: Implement rogue attack
         # Could add a chance for critical hit (double damage)
         # Hint: use random.randint(1, 10) and if result <= 3, it's a crit
-        pass
+        crit_chance = random.randint(1, 10)
+        damage = self.strength
+        if crit_chance >= 6:
+            damage *= 2
+        target.take_damage(damage)
         
     def sneak_attack(self, target):
         """
@@ -217,7 +235,7 @@ class Rogue(Player):
         """
         # TODO: Implement sneak attack
         # Should always do critical damage
-        pass
+        target.take_damage(self.strength*2)
 
 class Weapon:
     """
