@@ -60,8 +60,7 @@ class Character:
     
     def __init__(self, name, health, strength, magic):
         """Initialize basic character attributes"""
-        # TODO: Set the character's name, health, strength, and magic
-        # These should be stored as instance variables
+        # Creates initial attributes
         self.name = name
         self.health = health
         self.strength = strength
@@ -75,9 +74,7 @@ class Character:
         2. Apply damage to the target
         3. Print what happened
         """
-        # TODO: Implement basic attack
-        # Damage should be based on self.strength
-        # Use target.take_damage(damage) to apply damage
+        # Deals damage
         damage = self.strength
         target.take_damage(damage)
         
@@ -86,9 +83,7 @@ class Character:
         Reduces this character's health by the damage amount.
         Health should never go below 0.
         """
-        # TODO: Implement taking damage
-        # Reduce self.health by damage amount
-        # Make sure health doesn't go below 0
+        # Recieves damage
         self.health -= damage
         if self.health < 0:
             self.health = 0
@@ -97,8 +92,7 @@ class Character:
         """
         Prints the character's current stats in a nice format.
         """
-        # TODO: Print character's name, health, strength, and magic
-        # Make it look nice with formatting
+        # Prints stats
         print("=== CHARACTERS STATS ===")
         print(f"Name: {self.name}")
         print(f"Health: {self.health}")
@@ -116,9 +110,7 @@ class Player(Character):
         Initialize a player character.
         Should call the parent constructor and add player-specific attributes.
         """
-        # TODO: Call super().__init__() with the basic character info
-        # TODO: Store the character_class (like "Warrior", "Mage", etc.)
-        # TODO: Add any other player-specific attributes (level, experience, etc.)
+        # Inherits parent attributes and creates its
         super().__init__(name, health, strength, magic)
         self.character_class = character_class
         self.level = 0
